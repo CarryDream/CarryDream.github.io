@@ -1,0 +1,15 @@
+
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /tags/
+Allow: /project/
+Allow: /about/
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /images/
+
+Sitemap: http://test.jinht.info/sitemap.xml
+Sitemap: http://test.jinht.info/baidusitemap.xml
