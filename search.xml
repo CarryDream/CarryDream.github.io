@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2017/07/28/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Hexo </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> 示例 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Asterisk Dial 发起呼叫接通后一段时间内自动挂断]]></title>
+      <url>/2016/10/14/asterisk-auto-hangup-dialplan/</url>
+      <content type="html"><![CDATA[<h4 id="使用-Dial-这个-Application-进行设置"><a href="#使用-Dial-这个-Application-进行设置" class="headerlink" title="使用 Dial 这个 Application 进行设置."></a>使用 Dial 这个 Application 进行设置.</h4><ul>
+<li>LIMIT_PLAYAUDIO_CALLER 该参数默认值为 true</li>
+<li>LIMIT_PLAYAUDIO_CALLEE 该参数默认值为 false</li>
+</ul>
+<h5 id="提示主叫方剩余时间-主叫方挂断后提示被叫方"><a href="#提示主叫方剩余时间-主叫方挂断后提示被叫方" class="headerlink" title="提示主叫方剩余时间, 主叫方挂断后提示被叫方"></a>提示主叫方剩余时间, 主叫方挂断后提示被叫方</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLER=true)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLEE=true)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_WARNING_FILE=/var/lib/asterisk/sounds/1/huanlizhanchang)</div><div class="line">exten =&gt; _x.,n,Dial(SIP/$&#123;EXTEN&#125;@$&#123;outline&#125;,,L(30000:10000:3000))</div></pre></td></tr></table></figure>
+<h5 id="到达时间后-提示被叫方-主叫方挂断后-被叫方继续听提示音乐-被叫挂断之后-主叫方也挂断"><a href="#到达时间后-提示被叫方-主叫方挂断后-被叫方继续听提示音乐-被叫挂断之后-主叫方也挂断" class="headerlink" title="到达时间后, 提示被叫方. 主叫方挂断后, 被叫方继续听提示音乐; 被叫挂断之后, 主叫方也挂断"></a>到达时间后, 提示被叫方. 主叫方挂断后, 被叫方继续听提示音乐; 被叫挂断之后, 主叫方也挂断</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLER=false)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLEE=true)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_WARNING_FILE=/var/lib/asterisk/sounds/1/huanlizhanchang)</div><div class="line">exten =&gt; _x.,n,Dial(SIP/$&#123;EXTEN&#125;@$&#123;outline&#125;,,L(20000:10000))</div></pre></td></tr></table></figure>
+<h5 id="到达时间后-提示主叫方-主叫挂断后-被叫同时挂断-被叫挂断后-主叫继续听提示音乐"><a href="#到达时间后-提示主叫方-主叫挂断后-被叫同时挂断-被叫挂断后-主叫继续听提示音乐" class="headerlink" title="到达时间后, 提示主叫方. 主叫挂断后, 被叫同时挂断; 被叫挂断后, 主叫继续听提示音乐."></a>到达时间后, 提示主叫方. 主叫挂断后, 被叫同时挂断; 被叫挂断后, 主叫继续听提示音乐.</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLER=false)</div><div class="line">;exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLEE=true)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_WARNING_FILE=/var/lib/asterisk/sounds/1/huanlizhanchang)</div><div class="line">exten =&gt; _x.,n,Dial(SIP/$&#123;EXTEN&#125;@$&#123;outline&#125;,,L(20000:10000))</div></pre></td></tr></table></figure>
+<h5 id="到达时间后-提示主叫方-主叫挂断后-提示被叫方-被叫方挂断-主叫继续听音乐"><a href="#到达时间后-提示主叫方-主叫挂断后-提示被叫方-被叫方挂断-主叫继续听音乐" class="headerlink" title="到达时间后, 提示主叫方. 主叫挂断后, 提示被叫方; 被叫方挂断, 主叫继续听音乐."></a>到达时间后, 提示主叫方. 主叫挂断后, 提示被叫方; 被叫方挂断, 主叫继续听音乐.</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">;exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLER=false)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLEE=true)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_WARNING_FILE=/var/lib/asterisk/sounds/1/huanlizhanchang)</div><div class="line">exten =&gt; _x.,n,Dial(SIP/$&#123;EXTEN&#125;@$&#123;outline&#125;,,L(20000:10000))</div></pre></td></tr></table></figure>
+<h5 id="到达时间后-提示主叫方-主叫挂断后-被叫同时挂断-被叫挂断后-主叫继续听音乐"><a href="#到达时间后-提示主叫方-主叫挂断后-被叫同时挂断-被叫挂断后-主叫继续听音乐" class="headerlink" title="到达时间后, 提示主叫方. 主叫挂断后, 被叫同时挂断; 被叫挂断后, 主叫继续听音乐."></a>到达时间后, 提示主叫方. 主叫挂断后, 被叫同时挂断; 被叫挂断后, 主叫继续听音乐.</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLER=false)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLEE=false)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_WARNING_FILE=/var/lib/asterisk/sounds/1/huanlizhanchang)</div><div class="line">exten =&gt; _x.,n,Dial(SIP/$&#123;EXTEN&#125;@$&#123;outline&#125;,,L(20000:10000))</div></pre></td></tr></table></figure>
+<h5 id="到达时间后-提示主叫方-主叫挂断后-被叫同时挂断-被叫挂断后-主叫继续听音乐-1"><a href="#到达时间后-提示主叫方-主叫挂断后-被叫同时挂断-被叫挂断后-主叫继续听音乐-1" class="headerlink" title="到达时间后, 提示主叫方. 主叫挂断后, 被叫同时挂断; 被叫挂断后, 主叫继续听音乐."></a>到达时间后, 提示主叫方. 主叫挂断后, 被叫同时挂断; 被叫挂断后, 主叫继续听音乐.</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLER=true)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_PLAYAUDIO_CALLEE=false)</div><div class="line">exten =&gt; _x.,n,Set(LIMIT_WARNING_FILE=/var/lib/asterisk/sounds/1/huanlizhanchang)</div><div class="line">exten =&gt; _x.,n,Dial(SIP/$&#123;EXTEN&#125;@$&#123;outline&#125;,,L(20000:10000))</div></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h4><p>LIMIT_PLAYAUDIO_CALLER 设置为 true 或 false 是用来判断是否提示主叫方的. LIMIT_PLAYAUDIO_CALLEE 参数是用来设置是否提示被叫方的. 如果两个都为 false 或者两个都不设置, 则只提示主叫方. 如果两个都为 true, 则有限提示主叫方, 主叫挂断后提示被叫方. LIMIT_WARNING_FILE 是用来设置提示的音乐文件.</p>
+<p>注意: 当到达设置的时间时, 这是主叫或被叫说话, 双方都听不到. 当设置的提示音乐较长时, 这里会一直到听完提示音乐之后, 才会继续进行. 还有就是听提示音的时长也算为这里设置的总时长里面了. 当超过总时长的时候, 后台会有提示警告信息. 这里的 L 前一个时间指的是总的通话时长, 后面的时间指的是总时间还剩这些时间的时候提示. 这里的时间以毫秒计算.</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章:"></a>参考文章:</h4><ol>
+<li><a href="http://www.asterisk-help.com/simple/?t1300.html" target="_blank" rel="external">关于限制队列中座席通话时长</a></li>
+<li><a href="https://wiki.asterisk.org/wiki/display/AST/Application_Dial" target="_blank" rel="external">asterisk Dial application</a></li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> asterisk </tag>
+            
+            <tag> dialplan </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+    
+    <entry>
+      <title><![CDATA[About]]></title>
+      <url>/about/index.html</url>
+      <content type="html"><![CDATA[<p>[TOC]</p>
+<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
+<li>手机：15824735464 (外地)</li>
+<li>Email：jht15824735464@gmail.com</li>
+<li>微信号：15824735464</li>
+</ul>
+<hr>
+<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul>
+<li>靳宏廷/男/1992</li>
+<li>本科/河南教育国际交流学院/软件工程</li>
+<li>工作年限：3年</li>
+<li>技术博客：<a href="https://blog.jinht.info">https://blog.jinht.info</a></li>
+<li>Github：<a href="http://github.com/CarryDream" target="_blank" rel="external">http://github.com/CarryDream</a></li>
+<li>期望职位：Java高级程序员，架构师</li>
+<li>期望薪资：税前月薪14k~16k，特别喜欢的公司可例外</li>
+<li>期望城市：上海</li>
+</ul>
+<hr>
+<h1 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h1><h2 id="北控软件科技有限公司-2016年11月-至今"><a href="#北控软件科技有限公司-2016年11月-至今" class="headerlink" title="北控软件科技有限公司 (2016年11月 ~ 至今)"></a>北控软件科技有限公司 (2016年11月 ~ 至今)</h2><h3 id="日志管理系统"><a href="#日志管理系统" class="headerlink" title="日志管理系统"></a>日志管理系统</h3><p>该项目是刚进公司一周接手过来的, 项目设计思想是将各个系统项目日志按照格式输出到指定文件, 定时读取入库. 接手该项目之后发现该系统只支持目前两个系统的日志入库, 没有办法通用. 经过几天的折腾之后, 该系统常用参数做到了可配置, 宕机后文件可以续读,</p>
+<h3 id="高考-学考成绩管理系统"><a href="#高考-学考成绩管理系统" class="headerlink" title="高考/学考成绩管理系统"></a>高考/学考成绩管理系统</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h3 id="志愿填报系统"><a href="#志愿填报系统" class="headerlink" title="志愿填报系统"></a>志愿填报系统</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h2 id="上海汉天信息科技有限公司-2014年7月-2016年11月"><a href="#上海汉天信息科技有限公司-2014年7月-2016年11月" class="headerlink" title="上海汉天信息科技有限公司 (2014年7月 ~ 2016年11月)"></a>上海汉天信息科技有限公司 (2014年7月 ~ 2016年11月)</h2><h3 id="EC2-标准版-共享池-简化版-各种定制版"><a href="#EC2-标准版-共享池-简化版-各种定制版" class="headerlink" title="EC2 标准版/共享池/简化版/各种定制版"></a>EC2 标准版/共享池/简化版/各种定制版</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h3 id="EC-中间件-FreeSWITCH-Asterisk"><a href="#EC-中间件-FreeSWITCH-Asterisk" class="headerlink" title="EC 中间件 (FreeSWITCH/Asterisk)"></a>EC 中间件 (FreeSWITCH/Asterisk)</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h3 id="ECS"><a href="#ECS" class="headerlink" title="ECS"></a>ECS</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<hr>
+<h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><p>以下均为我熟练使用的技能</p>
+<ul>
+<li>Web开发：Java/Python/C#</li>
+<li>Web框架：Spring/MyBatis/Freemarker/Swagger/Kafka</li>
+<li>前端框架：Bootstrap/AngularJS/HTML5/JQuery</li>
+<li>数据库相关：PgSQL/MySQL/Oracle/MSSQL</li>
+<li>版本管理、文档和自动化部署工具：Svn/Git/Maven/Gradle</li>
+<li>单元测试：Junit/Mock</li>
+</ul>
+<h2 id="参考技能关键字"><a href="#参考技能关键字" class="headerlink" title="参考技能关键字"></a>参考技能关键字</h2><p>本技能关键字列表是从最近招聘Java的数百份JD中统计出来的，括号中是出现的词频。如果你的简历要投递给有机器（简历分选系统）和不如机器（不懂技术的HR）筛选简历环节的地方，请一定从下边高频关键词中选择5～10个适合你自己的。</p>
+<ul>
+<li>java(730)</li>
+<li>spring(305)</li>
+<li>web(260)</li>
+<li>mysql(250)</li>
+<li>oracle(207)</li>
+<li>linux(198)</li>
+<li>j2ee(182)</li>
+<li>javascript(177)</li>
+<li>sql(176)</li>
+<li>hibernate(169)</li>
+<li>html(139)</li>
+<li>tomcat(132)</li>
+<li>struts(128)</li>
+<li>jquery(116)</li>
+<li>jsp(106)</li>
+<li>ajax(96)</li>
+<li>css(94)</li>
+<li>ibatis(84)</li>
+<li>mvc(77)</li>
+<li>servlet(71)</li>
+<li>xml(70)</li>
+<li>js(62)</li>
+<li>eclipse(51)</li>
+<li>mybatis(51)</li>
+<li>jboss(47)</li>
+<li>struts2(47)</li>
+<li>weblogic(46)</li>
+<li>redis(46)</li>
+<li>apache(45)</li>
+<li>http(44)</li>
+<li>shell(39)</li>
+<li>python(38)</li>
+<li>hadoop(37)</li>
+<li>nosql(35)</li>
+<li>ssh(35)</li>
+<li>sqlserver(33)</li>
+<li>mongodb(33)</li>
+<li>svn(32)</li>
+<li>uml(32)</li>
+<li>json(27)</li>
+<li>unix(27)</li>
+<li>maven(27)</li>
+<li>nginx(26)</li>
+<li>webservice(25)</li>
+<li>jdbc(24)</li>
+<li>memcached(23)</li>
+<li>tcp(22)</li>
+<li>resin(22)</li>
+<li>jvm(21)</li>
+<li>socket(21)</li>
+<li>db2(19)</li>
+<li>springmvc(19)</li>
+<li>websphere(16)</li>
+<li>soa(16)</li>
+<li>mina(14)</li>
+<li>android(14)</li>
+<li>extjs(13)</li>
+<li>erp(12)</li>
+<li>memcache(12)</li>
+<li>api(11)</li>
+<li>jetty(11)</li>
+<li>myeclipse(11)</li>
+<li>ext(10)</li>
+<li>git(10)</li>
+<li>jpa(10)</li>
+<li>svm(9)</li>
+<li>php(9)</li>
+<li>jms(9)</li>
+<li>ruby(9)</li>
+<li>lucene(8)</li>
+<li>html5(8)</li>
+<li>postgresql(8)</li>
+<li>crm(7)</li>
+<li>javaee(7)</li>
+<li>sybase(7)</li>
+<li>freemarker(6)</li>
+<li>cache(6)</li>
+<li>jsf(6)</li>
+<li>j2se(6)</li>
+<li>jbpm(6)</li>
+<li>cvs(6)</li>
+<li>junit(6)</li>
+<li>visio(6)</li>
+<li>netty(6)</li>
+<li>hbase(6)</li>
+<li>nio(6)</li>
+<li>powerdesigner(6)</li>
+<li>oo(6)</li>
+<li>aop(6)</li>
+<li>workflow(5)</li>
+<li>restful(5)</li>
+<li>ios(5)</li>
+<li>ant(5)</li>
+<li>mssql(5)</li>
+<li>orm(5)</li>
+<li>rose(5)</li>
+<li>solr(5)</li>
+<li>webwork(5)</li>
+<li>zookeeper(4)</li>
+<li>soap(4)</li>
+<li>o2o(4)</li>
+<li>wap(4)</li>
+<li>cxf(4)</li>
+<li>thrift(4)</li>
+<li>xmpp(3)</li>
+<li>p2p(3)</li>
+<li>javabean(3)</li>
+<li>jee(3)</li>
+<li>hdfs(3)</li>
+<li>dom(3)</li>
+<li>hibernate3(3)</li>
+</ul>
+<hr>
+<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>感谢您花时间阅读我的简历，期待能有机会和您共事。</p>
+<p><strong>学历</strong></p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>学校</th>
+<th>学历</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2009/09 – 2013/07</td>
+<td>河南教育国际交流学院</td>
+<td>软件工程</td>
+<td></td>
+</tr>
+<tr>
+<td>2006 - 2009</td>
+<td>夏邑第一高级中学</td>
+<td>高中</td>
+<td></td>
+</tr>
+<tr>
+<td>2003 - 2006</td>
+<td>曹集二中</td>
+<td>初中</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>工作经历</strong></p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>公司</th>
+<th>职位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/06 – 2014/06</td>
+<td>郑州华聪信息科技有限公司</td>
+<td>软件研发工程师</td>
+<td></td>
+</tr>
+<tr>
+<td>2014/07 – 2016/11</td>
+<td>上海汉天信息科技有限公司</td>
+<td>软件研发工程师</td>
+<td></td>
+</tr>
+<tr>
+<td>2016/11 – 至今</td>
+<td>北控软件有限公司</td>
+<td>java开发工程师</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[resume]]></title>
+      <url>/backups/resume.html</url>
+      <content type="html"><![CDATA[<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
+<li>手机：15824735464 (外地)</li>
+<li>Email：jht15824735464@gmail.com</li>
+<li>微信号：15824735464</li>
+</ul>
+<hr>
+<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul>
+<li>靳宏廷/男/1992</li>
+<li>本科/河南教育国际交流学院/软件工程</li>
+<li>工作年限：3年</li>
+<li>技术博客：<a href="https://blog.jinht.info">https://blog.jinht.info</a></li>
+<li>Github：<a href="http://github.com/CarryDream" target="_blank" rel="external">http://github.com/CarryDream</a></li>
+<li>期望职位：Java高级程序员，架构师</li>
+<li>期望薪资：税前月薪14k~16k，特别喜欢的公司可例外</li>
+<li>期望城市：上海</li>
+</ul>
+<hr>
+<h1 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h1><h2 id="北控软件科技有限公司-2016年11月-至今"><a href="#北控软件科技有限公司-2016年11月-至今" class="headerlink" title="北控软件科技有限公司 (2016年11月 ~ 至今)"></a>北控软件科技有限公司 (2016年11月 ~ 至今)</h2><h3 id="日志管理系统"><a href="#日志管理系统" class="headerlink" title="日志管理系统"></a>日志管理系统</h3><p>该项目是刚进公司一周接手过来的, 项目设计思想是将各个系统项目日志按照格式输出到指定文件, 定时读取入库. 接手该项目之后发现该系统只支持目前两个系统的日志入库, 没有办法通用. 经过几天的折腾之后, 该系统常用参数做到了可配置, 宕机后文件可以续读,</p>
+<h3 id="高考-学考成绩管理系统"><a href="#高考-学考成绩管理系统" class="headerlink" title="高考/学考成绩管理系统"></a>高考/学考成绩管理系统</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h3 id="志愿填报系统"><a href="#志愿填报系统" class="headerlink" title="志愿填报系统"></a>志愿填报系统</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h2 id="上海汉天信息科技有限公司-2014年7月-2016年11月"><a href="#上海汉天信息科技有限公司-2014年7月-2016年11月" class="headerlink" title="上海汉天信息科技有限公司 (2014年7月 ~ 2016年11月)"></a>上海汉天信息科技有限公司 (2014年7月 ~ 2016年11月)</h2><h3 id="EC2-标准版-共享池-简化版-各种定制版"><a href="#EC2-标准版-共享池-简化版-各种定制版" class="headerlink" title="EC2 标准版/共享池/简化版/各种定制版"></a>EC2 标准版/共享池/简化版/各种定制版</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h3 id="EC-中间件-FreeSWITCH-Asterisk"><a href="#EC-中间件-FreeSWITCH-Asterisk" class="headerlink" title="EC 中间件 (FreeSWITCH/Asterisk)"></a>EC 中间件 (FreeSWITCH/Asterisk)</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<h3 id="ECS"><a href="#ECS" class="headerlink" title="ECS"></a>ECS</h3><p>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。</p>
+<hr>
+<h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><p>以下均为我熟练使用的技能</p>
+<ul>
+<li>Web开发：Java/Python/C#</li>
+<li>Web框架：Spring/MyBatis/Freemarker/Swagger/Kafka</li>
+<li>前端框架：Bootstrap/AngularJS/HTML5/JQuery</li>
+<li>数据库相关：PgSQL/MySQL/Oracle/MSSQL</li>
+<li>版本管理、文档和自动化部署工具：Svn/Git/Maven/Gradle</li>
+<li>单元测试：Junit/Mock</li>
+</ul>
+<h2 id="参考技能关键字"><a href="#参考技能关键字" class="headerlink" title="参考技能关键字"></a>参考技能关键字</h2><p>本技能关键字列表是从最近招聘Java的数百份JD中统计出来的，括号中是出现的词频。如果你的简历要投递给有机器（简历分选系统）和不如机器（不懂技术的HR）筛选简历环节的地方，请一定从下边高频关键词中选择5～10个适合你自己的。</p>
+<ul>
+<li>java(730)</li>
+<li>spring(305)</li>
+<li>web(260)</li>
+<li>mysql(250)</li>
+<li>oracle(207)</li>
+<li>linux(198)</li>
+<li>j2ee(182)</li>
+<li>javascript(177)</li>
+<li>sql(176)</li>
+<li>hibernate(169)</li>
+<li>html(139)</li>
+<li>tomcat(132)</li>
+<li>struts(128)</li>
+<li>jquery(116)</li>
+<li>jsp(106)</li>
+<li>ajax(96)</li>
+<li>css(94)</li>
+<li>ibatis(84)</li>
+<li>mvc(77)</li>
+<li>servlet(71)</li>
+<li>xml(70)</li>
+<li>js(62)</li>
+<li>eclipse(51)</li>
+<li>mybatis(51)</li>
+<li>jboss(47)</li>
+<li>struts2(47)</li>
+<li>weblogic(46)</li>
+<li>redis(46)</li>
+<li>apache(45)</li>
+<li>http(44)</li>
+<li>shell(39)</li>
+<li>python(38)</li>
+<li>hadoop(37)</li>
+<li>nosql(35)</li>
+<li>ssh(35)</li>
+<li>sqlserver(33)</li>
+<li>mongodb(33)</li>
+<li>svn(32)</li>
+<li>uml(32)</li>
+<li>json(27)</li>
+<li>unix(27)</li>
+<li>maven(27)</li>
+<li>nginx(26)</li>
+<li>webservice(25)</li>
+<li>jdbc(24)</li>
+<li>memcached(23)</li>
+<li>tcp(22)</li>
+<li>resin(22)</li>
+<li>jvm(21)</li>
+<li>socket(21)</li>
+<li>db2(19)</li>
+<li>springmvc(19)</li>
+<li>websphere(16)</li>
+<li>soa(16)</li>
+<li>mina(14)</li>
+<li>android(14)</li>
+<li>extjs(13)</li>
+<li>erp(12)</li>
+<li>memcache(12)</li>
+<li>api(11)</li>
+<li>jetty(11)</li>
+<li>myeclipse(11)</li>
+<li>ext(10)</li>
+<li>git(10)</li>
+<li>jpa(10)</li>
+<li>svm(9)</li>
+<li>php(9)</li>
+<li>jms(9)</li>
+<li>ruby(9)</li>
+<li>lucene(8)</li>
+<li>html5(8)</li>
+<li>postgresql(8)</li>
+<li>crm(7)</li>
+<li>javaee(7)</li>
+<li>sybase(7)</li>
+<li>freemarker(6)</li>
+<li>cache(6)</li>
+<li>jsf(6)</li>
+<li>j2se(6)</li>
+<li>jbpm(6)</li>
+<li>cvs(6)</li>
+<li>junit(6)</li>
+<li>visio(6)</li>
+<li>netty(6)</li>
+<li>hbase(6)</li>
+<li>nio(6)</li>
+<li>powerdesigner(6)</li>
+<li>oo(6)</li>
+<li>aop(6)</li>
+<li>workflow(5)</li>
+<li>restful(5)</li>
+<li>ios(5)</li>
+<li>ant(5)</li>
+<li>mssql(5)</li>
+<li>orm(5)</li>
+<li>rose(5)</li>
+<li>solr(5)</li>
+<li>webwork(5)</li>
+<li>zookeeper(4)</li>
+<li>soap(4)</li>
+<li>o2o(4)</li>
+<li>wap(4)</li>
+<li>cxf(4)</li>
+<li>thrift(4)</li>
+<li>xmpp(3)</li>
+<li>p2p(3)</li>
+<li>javabean(3)</li>
+<li>jee(3)</li>
+<li>hdfs(3)</li>
+<li>dom(3)</li>
+<li>hibernate3(3)</li>
+</ul>
+<hr>
+<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>感谢您花时间阅读我的简历，期待能有机会和您共事。</p>
+<p><strong>学历</strong></p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>学校</th>
+<th>学历</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  2009/09 – 2013/07</td>
+<td>河南教育国际交流学院</td>
+<td>软件工程</td>
+</tr>
+<tr>
+<td>  2006 - 2009</td>
+<td>夏邑第一高级中学</td>
+<td>高中</td>
+</tr>
+<tr>
+<td>  2003 - 2006</td>
+<td>曹集二中</td>
+<td>初中</td>
+</tr>
+</tbody>
+</table>
+<p><strong>工作经历</strong></p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>公司</th>
+<th>职位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  2013/06 – 2014/06</td>
+<td>郑州华聪信息科技有限公司</td>
+<td>软件研发工程师</td>
+</tr>
+<tr>
+<td>  2014/07 – 2016/11</td>
+<td>上海汉天信息科技有限公司</td>
+<td>软件研发工程师</td>
+</tr>
+<tr>
+<td>  2016/11 – 至今</td>
+<td>北控软件有限公司</td>
+<td>java开发工程师</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Project]]></title>
+      <url>/project/index.html</url>
+      <content type="html"><![CDATA[<p>This is a Project page !</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Tags]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+  
+</search>

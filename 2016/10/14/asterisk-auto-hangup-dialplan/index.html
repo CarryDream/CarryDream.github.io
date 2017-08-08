@@ -201,7 +201,15 @@
 <script>
   (function () {
     var url = 'https://blog.jinht.info/2016/10/14/asterisk-auto-hangup-dialplan/';
-    $('#article-banner').geopattern(url)
+    // $('#article-banner').geopattern(url)
+    var banner = ''
+    if (banner) {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
     $('.header').removeClass('fixed-header')
 
      // error image

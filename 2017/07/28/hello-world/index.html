@@ -194,7 +194,15 @@
 <script>
   (function () {
     var url = 'https://blog.jinht.info/2017/07/28/hello-world/';
-    $('#article-banner').geopattern(url)
+    // $('#article-banner').geopattern(url)
+    var banner = ''
+    if (banner) {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
     $('.header').removeClass('fixed-header')
 
      // error image
