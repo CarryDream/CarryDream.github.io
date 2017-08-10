@@ -285,6 +285,19 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Project]]></title>
+      <url>/project/index.html</url>
+      <content type="html"><![CDATA[<p>This is a Project page !</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Tags]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[resume]]></title>
       <url>/backups/resume.html</url>
       <content type="html"><![CDATA[<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
@@ -491,19 +504,6 @@
 </tbody>
 </table>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Project]]></title>
-      <url>/project/index.html</url>
-      <content type="html"><![CDATA[<p>This is a Project page !</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Tags]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
   
