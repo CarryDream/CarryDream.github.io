@@ -69,13 +69,6 @@
   
     
     <entry>
-      <title><![CDATA[Project]]></title>
-      <url>/project/index.html</url>
-      <content type="html"><![CDATA[<p>This is a Project page !</p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[About]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<p>[TOC]</p>
@@ -497,6 +490,13 @@
 </tr>
 </tbody>
 </table>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Project]]></title>
+      <url>/project/index.html</url>
+      <content type="html"><![CDATA[<p>This is a Project page !</p>
 ]]></content>
     </entry>
     
