@@ -30,6 +30,9 @@
   <script src="/js/qrious.js"></script>
 <script src="/js/gitment.js"></script>
 </head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
 
   <body>
     <header class="header fixed-header">
@@ -150,7 +153,8 @@
           return (b.stargazers_count - a.stargazers_count)
         }).slice(1, 7)
         var cardHtml = repos.map(function(item) {
-          var description = String(item.description)
+          // var description = String(item.description)
+          var description = item.description || ""
           if (description.replace(/[\u0391-\uFFE5]/g, "aa").length > 72) {
             description = description.slice(0, 72) + '...'
           }
